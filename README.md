@@ -1,7 +1,7 @@
 AI Law Finder - Your AI-powered Legal Assistant in the Philippines
 Welcome to AI Law Finder!
 
-AI Law Finder is your one-stop shop for legal guidance and information in the Philippines. We leverage the power of artificial intelligence to provide you with easy-to-understand legal resources and connect you with relevant information for your specific situation.
+AI Law Finder is for legal guidance and information in the Philippines. We leverage the power of artificial intelligence to provide you with easy-to-understand legal resources and connect you with relevant information for your specific situation.
 
 What We Offer:
 
