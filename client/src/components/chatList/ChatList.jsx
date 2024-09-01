@@ -36,7 +36,7 @@ const ChatList = () => {
       <div className="upgrade">
         <img src="/logo.png" alt="" />
         <div className="texts">
-          <span><Link to="/faq">FAQ</Link> <Link to="/">Contact</Link> <Link to="/feedback">Feedback</Link></span>
+          <span><Link to="/faq">FAQ</Link> <a href="https://www.facebook.com/jethroromana.gabin.7" target="_blank">Contact</a> <Link to="/feedback">Feedback</Link></span>
           <span>© 2024. All rights reserved.</span>
         </div>
       </div>
