@@ -33,7 +33,7 @@ const termsSections = [
   {
     title: '1. Acceptance of Terms',
     content:
-      'By using Ai Law Finder, you agree to be bound by these Terms of Service. If you do not agree to these Terms, you may not access or use the service.',
+      'By using Ai Law Finder, you agree to be bound by these Terms of Service.',
   },
   {
     title: '2. Description of Service',
