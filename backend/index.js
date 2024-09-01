@@ -147,7 +147,7 @@ app.put("/api/chats/:id", ClerkExpressRequireAuth(), async (req, res) => {
 })
 
 
-// NEW LINE
+// feedback
 app.post("/api/feedback", ClerkExpressRequireAuth(), async (req, res) => {
   const userId = req.auth.userId;
   const { rating, comment } = req.body;
