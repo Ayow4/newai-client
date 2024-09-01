@@ -37,7 +37,7 @@ const ChatList = () => {
         <img src="/logo.png" alt="" />
         <div className="texts">
           <span><Link to="/faq">FAQ</Link> <Link to="/">Contact</Link> <Link to="/feedback">Feedback</Link></span>
-          <span>Team: Hiraya Manawari</span>
+          <span>© 2024. All rights reserved.</span>
         </div>
       </div>
     </div>
