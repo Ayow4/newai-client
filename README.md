@@ -16,8 +16,8 @@ Accessible: Get legal information anytime, anywhere, from any device.
 Easy-to-Use: Our platform is designed to be user-friendly, even for those with no legal background.
 Time-Saving: Get instant answers and avoid spending hours researching online.
 Cost-Effective: Access valuable legal information without breaking the bank.
-Important Disclaimer:
 
+Important Disclaimer:
 AI Law Finder is not a substitute for legal advice. While we strive to provide accurate and up-to-date information, you should always consult with a qualified lawyer for personalized legal guidance specific to your situation.
 
 Getting Started:
