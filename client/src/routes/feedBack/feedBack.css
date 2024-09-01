@@ -1,0 +1,120 @@
+.feedback-container {
+    background-color: #282828;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.feedback-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rating-container,
+.comment-container {
+    margin-bottom: 20px;
+}
+
+.rating-label,
+.comment-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.rating-buttons {
+    display: flex;
+}
+
+.rating-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 1.5em;
+    color: #915151;
+}
+
+.rating-button.active {
+    color: #ffcc00; /* Yellow color for active stars */
+}
+
+.comment-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    font-size: 1em;
+    color: #fff;
+    background-color: #383838;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffcc00;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #ffc107; /* Darker yellow on hover */
+}
+
+.success-notification {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    color: #4CAF50; }
+
+.success-notification i { 
+        margin-right: 5px; 
+    }
+
+    @media (max-width: 768px) {
+        .feedback-container {
+          padding: 20px;
+          margin: 20px auto;
+        }
+        .feedback-title {
+          font-size: 2em;
+        }
+        .rating-button {
+          font-size: 1.2em;
+        }
+        .comment-textarea {
+          padding: 5px;
+        }
+        .submit-button {
+          padding: 5px 10px;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .feedback-container {
+          padding: 10px;
+          margin: 10px auto;
+        }
+        .feedback-title {
+          font-size: 1.5em;
+        }
+        .rating-button {
+          font-size: 1em;
+        }
+        .comment-textarea {
+          padding: 2px;
+        }
+        .submit-button {
+          padding: 2px 5px;
+        }
+      }

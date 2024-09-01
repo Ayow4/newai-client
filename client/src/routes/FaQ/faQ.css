@@ -1,0 +1,50 @@
+.faq-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: sans-serif;
+    background-color: #0e0c16;
+    color: #fff;
+  }
+  
+  .faq-title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .faq-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+  }
+  
+  .faq-question {
+    background-color: #29263b;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .faq-question-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .faq-question-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+  }
+  
+  .faq-question:hover .faq-question-answer, .faq-question.active .faq-question-answer {
+    max-height: 500px; /* adjust the max height according to your needs */
+  }
+  
+.faq-question:hover .faq-question-answer span, .faq-question.active .faq-question-answer {
+    background-color: rgba(7, 7, 7, 0.5); /* adds a semi-transparent background to the text */
+    padding: 10px; /* adds some padding to the text */
+    border-radius: 20px;
+    float: left; /* makes the text float to the left */
+  }
