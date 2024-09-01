@@ -11,7 +11,7 @@ const Homepage = () => {
       <img src="/orbital.png" alt="" className="orbital" />
       <div className="left">
         <h1>AI LAW FINDER</h1>
-        <h2>Simplifying Legal Concepts for Everyone!</h2>
+        <h2>Simplifying Legal Concepts for Everyone</h2>
         <h3>
           Ai Lawfinder is designed to guide you through the maze of legal information,
           providing clarity and support whether you're new to legal matters or need a quick refresher.
