@@ -1,6 +1,20 @@
-.signInPage{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.signInPage {
+  height: 100%; /* use viewport height instead of percentage */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* For small screens (e.g., mobile devices) */
+@media only screen and (max-width: 600px) {
+  .signInPage {
+    flex-direction: column; /* stack elements vertically */
   }
+}
+
+/* For medium screens (e.g., tablets) */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+  .signInPage {
+    flex-direction: row; /* arrange elements horizontally */
+  }
+}
