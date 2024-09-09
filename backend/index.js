@@ -11,6 +11,7 @@ import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node'
 const port = process.env.PORT || 3000;
 const app = express();
 
+
 app.use(cors({
   origin: process.env.CLIENT_URL,
   credentials: true,
@@ -190,8 +191,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(401).send('Unauthenticated!')
 });
-
-
 
 
 app.listen(port, () => {
