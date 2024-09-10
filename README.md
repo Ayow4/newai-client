@@ -54,3 +54,7 @@ Contact Us:
 For questions or feedback, feel free to reach out to us via https://www.facebook.com/profile.php?id=61565169932067.
 
 We are constantly working to improve AI Law Finder. Let us know how we can help you navigate the legal landscape in the Philippines!
+
+## License
+
+[MIT]
