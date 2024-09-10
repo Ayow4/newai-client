@@ -1,7 +1,25 @@
 
+#Installation
 ```bash
 cd ./client
 ```
+```bash
+npm install
+```
+```bash
+npm run dev
+```
+```bash
+cd ./backend
+```
+```bash
+npm install
+```
+```bash
+npm start
+```
+
+
 
 AI Law Finder - Your AI-powered Legal Assistant in the Philippines
 Welcome to AI Law Finder!
