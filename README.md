@@ -57,7 +57,7 @@ We are constantly working to improve AI Law Finder. Let us know how we can help 
 
 ## License
 
-MIT License
+[MIT](https://choosealicense.com/licenses/mit/)
 
 Copyright (c) 2024 [Darryl Paragatos]
 
