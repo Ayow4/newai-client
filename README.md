@@ -1,5 +1,8 @@
 
-## Installation
+## MERN STACK
+MERN is a pre-built technology stack based on JavaScript technologies. MERN stands for MongoDB, Express, React, and Node, after the four key technologies that make up the stack. MongoDB — document database. Express(.js) — Node.js web framework. React(.js) — a client-side JavaScript framework.
+
+## Installation Instruction
 ```bash
 cd ./client
 ```
@@ -18,7 +21,6 @@ npm install
 ```bash
 npm start
 ```
-
 
 
 AI Law Finder - Your AI-powered Legal Assistant in the Philippines
