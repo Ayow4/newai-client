@@ -1,3 +1,8 @@
+
+```bash
+cd ./client
+```
+
 AI Law Finder - Your AI-powered Legal Assistant in the Philippines
 Welcome to AI Law Finder!
 
