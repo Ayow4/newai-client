@@ -4,7 +4,7 @@ import ImageKit from "imagekit";
 import mongoose from "mongoose";
 import Chat from "./models/chat.js";
 import UserChats from "./models/userChats.js";
-import Feedback from "./models/feedback.js";
+import Feedback from "./models/feedBack.js";
 import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node'
 
 
