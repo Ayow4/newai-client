@@ -1,12 +1,10 @@
 import express from "express";
 import cors from "cors";
-import path from "path";
-import url, { fileURLToPath } from "url";
 import ImageKit from "imagekit";
 import mongoose from "mongoose";
 import Chat from "./models/chat.js";
 import UserChats from "./models/userChats.js";
-import FeedBack from "./models/feedback.js";
+// import FeedBack from "./models/feedBack.js";
 import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node'
 import dotenv from "dotenv";
 dotenv.config();
@@ -14,8 +12,6 @@ dotenv.config();
 const port = process.env.PORT || 3000;
 const app = express();
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 
 app.use(cors({
   origin: process.env.CLIENT_URL,
@@ -33,6 +29,10 @@ const connect = async () => {
     console.error("Failed to connect to MongoDB: ", err);
   }
 };
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend!');
+});
 
 const imagekit = new ImageKit({
   urlEndpoint: process.env.IMAGE_KIT_ENDPOINT,
@@ -154,32 +154,32 @@ app.put("/api/chats/:id", ClerkExpressRequireAuth(), async (req, res) => {
 
 
 // feedback
-app.post("/api/feedback", ClerkExpressRequireAuth(), async (req, res) => {
-  const userId = req.auth.userId;
-  const { rating, comment } = req.body;
+// app.post("/api/feedback", ClerkExpressRequireAuth(), async (req, res) => {
+//   const userId = req.auth.userId;
+//   const { rating, comment } = req.body;
 
-  console.log("Received feedback request:", req.body);
+//   console.log("Received feedback request:", req.body);
 
-  try {
-    const newFeedback = new FeedBack({
-      userId,
-      rating,
-      comment,
-    });
+//   try {
+//     const newFeedback = new FeedBack({
+//       userId,
+//       rating,
+//       comment,
+//     });
 
-    console.log("Saving feedback to database...");
+//     console.log("Saving feedback to database...");
 
-    await newFeedback.save();
+//     await newFeedback.save();
 
-    console.log("Feedback saved successfully!");
+//     console.log("Feedback saved successfully!");
 
-    res.status(201).send("Feedback submitted successfully!");
-  } catch (err) {
-    console.error("Error submitting feedback:", err);
-    res.status(500).send("Error submitting feedback!");
-  }
-});
-
+//     res.status(201).send("Feedback submitted successfully!");
+//   } catch (err) {
+//     console.error("Error submitting feedback:", err);
+//     res.status(500).send("Error submitting feedback!");
+//   }
+// });
+// -------------------------------------------------- 
 // app.get("/api/feedback", async (req, res) => {
 //   try {
 //     const feedback = await Feedback.find().exec();
@@ -196,13 +196,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(401).send('Unauthenticated!')
 });
-
-app.use(express.static(path.join(__dirname, "../client")))
-
-app.get("*",(req,res)=>{
-  res.sendFile(path.join(__dirname,"../client/", "index.html"))
-})
-
+// ---------try------------------
 
 app.listen(port, () => {
   connect()
