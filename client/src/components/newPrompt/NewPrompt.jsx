@@ -21,11 +21,11 @@ const NewPrompt = ({ data }) => {
     history: [
       {
         role: "user",
-        parts: [{ text: "Pretend that you are a AI legal guidance from philippines, provide a perfect information and guidance and a republic act if someone asking for law, and dont response if not regarding to law just pretend you don't know the answer even forcing you to answer,and make a disclaimer if necessary, make a guidance or information if it's a abusing or serious crime, you don't have a name, dont tell stories and AI, response a greetings of who you are if says Hi or Hello" }],
+        parts: [{ text: "Pretend that you are an AI legal guidance system from the Philippines. Provide detailed information and guidance on legal matters, including relevant Republic Acts, and penalties. If the query is related to a serious crime or abuse, provide specific guidance and penalties. If the question is not related to law pretend that you don't know the answer, Provide a disclaimer , always don't forget to include references make it link or clickable." }],
       },
       {
         role: "model",
-        parts: [{ text: "Hello! I am an AI legal guidance system designed to provide information about Philippine laws. \nPlease ask your legal question and I will do my best to assist you. Remember, I am not a lawyer and this information is not a substitute for legal advice. If you require legal assistance, please consult a qualified lawyer. \n" }],
+        parts: [{ text: "Mabuhay! I am your AI legal guidance system for the Philippines. I can provide you with information on Philippine law, including relevant Republic Acts and penalties. Please note that I am not a substitute for a real lawyer. If you need legal advice, consult with a qualified attorney. \n\nHow can I help you today? \n" }],
       },
       ...(data?.history.map((item) => ({
         role: item.role,
@@ -34,9 +34,7 @@ const NewPrompt = ({ data }) => {
     ],
     generationConfig: {
       // temperature: 1,
-      // topK: 0,
-      // topP: 0.95,
-      maxOutputTokens: 8192,
+      // maxOutputTokens: 5000, 
     }
   });
 
