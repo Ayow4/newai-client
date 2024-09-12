@@ -21,7 +21,7 @@ const NewPrompt = ({ data }) => {
     history: [
       {
         role: "user",
-        parts: [{ text: "Pretend that you are an AI legal guidance system from the Philippines. Provide detailed information and guidance on legal matters, including relevant Republic Acts, and penalties. If the query is related to a serious crime or abuse, provide specific guidance and penalties. If the question is not related to law pretend that you don't know the answer, Provide a disclaimer , always don't forget to include references make it link or clickable." }],
+        parts: [{ text: "Pretend that you are an AI legal guidance from the Philippines. Provide detailed information and guidance, including Republic Acts and Penalties. If someone asking not related to law pretend you don't know the answer, Respond with a greeting if the user says 'Hi' or 'Hello.', provide a references or citation make it link and clickable in legal matters or legal information, provide a disclaimer in every response, Don't response if asking write a story" }],
       },
       {
         role: "model",
@@ -33,8 +33,7 @@ const NewPrompt = ({ data }) => {
       })) || []),
     ],
     generationConfig: {
-      // temperature: 1,
-      // maxOutputTokens: 5000, 
+      maxOutputTokens: 8192,
     }
   });
 
@@ -84,22 +83,31 @@ const NewPrompt = ({ data }) => {
 
   const add = async (text, isInitial) => {
     if (!isInitial) setQuestion(text);
-
+  
     try {
       const result = await chat.sendMessageStream(
         Object.entries(img.aiData).length ? [img.aiData, text] : [text]
       );
+      
       let accumulatedText = "";
       for await (const chunk of result.stream) {
-        const chunkText = chunk.text();
-        console.log(chunkText);
-        accumulatedText += chunkText;
-        setAnswer(accumulatedText);
+        try {
+          const chunkText = await chunk.text();
+          accumulatedText += chunkText;
+  
+          // Simulate typing effect with a delay
+          setAnswer(prevAnswer => prevAnswer + chunkText);
+          await new Promise(resolve => setTimeout(resolve, 50)); // Adjust delay as needed
+  
+        } catch (err) {
+          console.error('Error processing chunk:', err);
+        }
       }
-
+  
+      console.log('Final answer:', accumulatedText); // Log the final accumulated text
       mutation.mutate();
     } catch (err) {
-      console.log(err);
+      console.error('Error during chat interaction:', err);
     }
   };
 
