@@ -20,8 +20,8 @@
       text-align: center;
   
       h1 {
-        font-size: 100px;
-        background: linear-gradient(to right, #217bfe, #2aff8a);
+        font-size: 60px;
+        background: linear-gradient(to right, #ffffff, #ffffff); /* Green gradient for planting theme */
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
@@ -40,7 +40,7 @@
       }
       a {
         padding: 15px 25px;
-        background-color: #217bfe;
+        background-color: #00fc7e;
         color: white;
         border-radius: 20px;
         font-size: 14px;
@@ -48,7 +48,7 @@
   
         &:hover {
           background-color: white;
-          color: #217bfe;
+          color: #00fc7e;
         }
       }
     }
@@ -63,7 +63,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #151220;
+        background-image: url("/farming-icon.png");
         border-radius: 50px;
         width: 80%;
         height: 50%;
@@ -78,14 +78,7 @@
           left: 0;
           border-radius: 50px;
   
-          .bg {
-            background-image: url("/bg.png");
-            opacity: 0.5;
-            width: 500%;
-            height: 130%;
-            background-size: auto 100%;
-            animation: 20s ease-in-out infinite alternate slideBg;
-          }
+          
         }
   
         .bot {
@@ -95,44 +88,7 @@
           animation: 3s ease-in-out infinite alternate botAnimate;
         }
   
-        .chat {
-          position: absolute;
-          bottom: -30px;
-          right: -50px;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 20px;
-          background-color: #2c2937;
-          border-radius: 10px;
-  
-          @media screen and (max-width: 1024px) {
-            display: none;
-          }
-  
-          @media screen and (max-width: 1280px) {
-            right: 0;
-          }
-  
-          img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-          }
-        }
       }
-    }
-  
-    .orbital {
-      position: absolute;
-      width: 60%;
-      height: 120%;
-      bottom: 0;
-      left: 0;
-      opacity: 0.1;
-      animation: 100s linear infinite rotateOrbital;
-      z-index: -1;
     }
   
     .terms {
@@ -158,30 +114,9 @@
       }
     }
   }
-  
-  @keyframes rotateOrbital {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(60deg);
-    }
-  }
-  
-  @keyframes botAnimate {
-    0% {
-      transform: scale(1) rotate(0deg);
-    }
-    100% {
-      transform: scale(1.1) rotate(-5deg);
-    }
-  }
-  
-  @keyframes slideBg {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
+
+  .farming-icon {
+    width: 100px; /* Adjust size as needed */
+    height: auto;
+    margin-top: 20px; /* Add spacing */
+}

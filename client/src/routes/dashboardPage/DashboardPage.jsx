@@ -39,24 +39,24 @@ const DashboardPage = () => {
     <div className='dashboardPage'>
       <div className="texts">
         <div className="logo">
-          <img src="/logo.png" alt="" />
-          <h1>AI LAWFINDER</h1>
+          {/* <img src="/logo.png" alt="" /> */}
+          <h1>  AI-DRIVEN FARMING PRACTICES</h1>
         </div>
 
-        {/* <div className="options">
+        <div className="options">
           <div className="option">
-            <img src="/chat.png" alt="" />
-            <span>---------------</span>
+            {/* <img src="/chat.png" alt="" /> */}
+            <span>What are some effective natural methods for controlling aphids on vegetable crops?"</span>
           </div>
           <div className="option">
-            <img src="/image.png" alt="" />
-            <span>---------------</span>
+            {/* <img src="/image.png" alt="" /> */}
+            <span>What are the signs of nitrogen deficiency in corn plants, and what are some common nitrogen fertilizer options?</span>
           </div>
           <div className="option">
-            <img src="/image.png" alt="" />
-            <span>---------------</span>
+            {/* <img src="/image.png" alt="" /> */}
+            <span>What are some general tips for improving soil drainage in a heavy clay soil for planting tomatoes?</span>
           </div>
-        </div> */}
+        </div>
       </div>
       <div className="formContainer">
         <form onSubmit={handleSubmit}>

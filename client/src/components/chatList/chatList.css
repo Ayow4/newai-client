@@ -1,63 +1,76 @@
 .chatList {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #4CAF50; /* Earthy green background for the chat list */
+  padding: 20px;
+  border-radius: 20px; /* Rounded corners for a natural look */
+  box-shadow: 0px 6px 15px rgb(0, 58, 182); /* Subtle shadow for a professional look */
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background-color: #A5D6A7; /* Light green separator for better contrast */
+  opacity: 0.5;
+  border-radius: 5px;
+  margin: 20px 0px;
+}
+
+.title {
+  font-weight: 700; /* Bold title for emphasis */
+  font-size: 16px; /* Larger font size for better readability */
+  color: #2E7D32; /* Dark green text for contrast */
+  margin-bottom: 15px;
   
-    hr {
-      border: none;
-      height: 2px;
-      background-color: #ddd;
-      opacity: 0.1;
-      border-radius: 5px;
-      margin: 20px 0px;
-    }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Added spacing between items */
+  overflow-y: hidden; /* Enable scrolling for long lists */
   
-    .title {
-      font-weight: 600;
-      font-size: 10px;
-      margin-bottom: 10px;
-    }
-  
-    .list {
-      display: flex;
-      flex-direction: column;
-      /*overflow: scroll;*/
-    }
-  
-    a {
-      padding: 10px;
-      border-radius: 10px;
-  
-      &:hover {
-        background-color: #2c2937;
-      }
-    }
-  
-    .upgrade {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 12px;
-  
-      img {
-        width: 24px;
-        height: 24px;
-      }
-  
-      .texts {
-        display: flex;
-        flex-direction: column;
-  
-        span {
-          &:first-child {
-            font-weight: 600;
-          }
-  
-          &:last-child {
-            color: #888;
-          }
-        }
-      }
-    }
-  }
+}
+
+a {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #A5D6A7; /* Light green background for list items */
+  color: #2E7D32; /* Dark green text for readability */
+  text-decoration: none; /* Remove underline */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+  background-color: #81C784; /* Slightly lighter green on hover */
+  transform: scale(.95); /* Subtle hover effect */
+}
+
+.upgrade {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px; /* Adjusted font size for better readability */
+  color: #2E7D32; /* Dark green text for upgrade section */
+}
+
+img {
+  width: 28px; /* Slightly larger icon size */
+  height: 28px;
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.texts span:first-child {
+  font-weight: 700; /* Bold text for emphasis */
+  color: #2E7D32; /* Dark green text for better visibility */
+}
+
+.texts span:last-child {
+  color: #005703; /* Subtle light green for secondary text */
+}

@@ -33,13 +33,13 @@ const ChatList = () => {
             ))}
       </div>
       <hr />
-      <div className="upgrade">
+      {/* <div className="upgrade">
         <img src="/logo.png" alt="" />
         <div className="texts">
           <span><Link to="/faq">FAQ</Link> <a href="https://www.facebook.com/profile.php?id=61565169932067" target="_blank">Contact</a> <Link to="/feedback">Feedback</Link></span>
           <span>© 2024. All rights reserved.</span>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
