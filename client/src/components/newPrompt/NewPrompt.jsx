@@ -5,6 +5,7 @@ import { IKImage } from 'imagekitio-react';
 import model from "../../lib/gemini"
 import Markdown from "react-markdown"
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAuth } from "@clerk/clerk-react"; // ✅ import Clerk hook
 
 const NewPrompt = ({ data }) => {
 
@@ -16,6 +17,8 @@ const NewPrompt = ({ data }) => {
     dbData: {},
     aiData: {},
   })
+
+   const { getToken } = useAuth(); // ✅ access Clerk JWT
 
   const chat = model.startChat({
     history: [
@@ -47,19 +50,28 @@ const NewPrompt = ({ data }) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: () => {
-      return fetch(`${import.meta.env.VITE_API_URL}/api/chats/${data._id}`, {
+    mutationFn: async () => {
+      const token = await getToken(); // Ensure token is fetched
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats/${data._id}`, {
         method: "PUT",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Ensure the token is being set correctly
         },
         body: JSON.stringify({
           question: question.length ? question : undefined,
           answer,
           img: img.dbData?.filePath || undefined,
         }),
-      }).then((res) => res.json());
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
+      }
+  
+      return response.json();
     },
     onSuccess: () => {
       queryClient
