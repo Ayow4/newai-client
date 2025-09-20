@@ -55,17 +55,18 @@ const NewPrompt = ({ data }) => {
     if (!token) throw new Error("No Clerk token available");
 
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats/${data._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // ✅ Clerk JWT
-      },
-      body: JSON.stringify({
-        question: question.length ? question : undefined,
-        answer,
-        img: img.dbData?.filePath || undefined,
-      }),
-    });
+  method: "PUT",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${await getToken({ template: "default" })}`, 
+    // ^ Clerk recommends using getToken() explicitly
+  },
+  body: JSON.stringify({
+    question: question.length ? question : undefined,
+    answer,
+    img: img.dbData?.filePath || undefined,
+  }),
+});
 
     if (!response.ok) {
       const errorText = await response.text();
