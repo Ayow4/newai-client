@@ -14,38 +14,39 @@ const ChatPage = () => {
   const navigate = useNavigate();
 
   const { isPending, error, data } = useQuery({
-    queryKey: ["chat", chatId],
-    queryFn: async () => {
-      try {
-        const token = await getToken();
+  queryKey: ["chat", chatId],
+  queryFn: async () => {
+    try {
+      // Always get the fresh token for the current user
+      const token = await getToken({ template: "default" });
 
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats/${chatId}`, {
-          credentials: "include",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats/${chatId}`, {
+        credentials: "include", // keep cookies/session
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        if (response.status === 401) {
-          // Force sign out if token is invalid
-          await signOut();
-          navigate('/sign-in');
-          throw new Error('Unauthenticated. Please log in again.');
-        }
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Error ${response.status}: ${errorText}`);
-        }
-
-        return response.json();
-      } catch (err) {
-        console.error('Error fetching chat data:', err);
-        throw err;
+      // Handle unauthorized responses (e.g., switching users)
+      if (response.status === 401) {
+        await signOut();       // force logout
+        navigate('/sign-in');  // redirect to login
+        throw new Error('Unauthenticated. Please log in again.');
       }
-    },
-    retry: false, // optional: don't retry if token is invalid
-  });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
+      }
+
+      return response.json();
+    } catch (err) {
+      console.error('Error fetching chat data:', err);
+      throw err; // propagate to react-query
+    }
+  },
+  retry: false, // optional: don't retry if token is invalid
+});
 
   return (
     <div className='chatPage'>

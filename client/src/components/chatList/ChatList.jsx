@@ -11,17 +11,17 @@ const ChatList = () => {
     queryKey: ["userChats"],
     queryFn: async () => {
       try {
-        const token = await getToken();
+        const token = await getToken({ template: "default" });
 
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/userchats`, {
-          credentials: "include", // Keep this for cookies
+          credentials: "include", // Keep cookies for session
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
+        // If the token is invalid or session expired
         if (response.status === 401) {
-          // Token invalid or session expired, force logout
           await signOut();
           navigate('/sign-in');
           throw new Error("Unauthenticated. Please log in again.");
@@ -38,6 +38,7 @@ const ChatList = () => {
         throw err;
       }
     },
+    retry: false, // Avoid retrying when token is invalid
   });
 
 

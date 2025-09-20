@@ -9,45 +9,45 @@ const DashboardPage = () => {
   const navigate = useNavigate();
   const { getToken, signOut } = useAuth(); // added signOut to reset session if needed
 
-  const mutation = useMutation({
-    mutationFn: async (text) => {
-      try {
-        const token = await getToken();
+ const mutation = useMutation({
+  mutationFn: async (text) => {
+    try {
+      // Always get a fresh token for the current user
+      const token = await getToken({ template: "default" });
 
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats`, {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ text }),
-        });
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats`, {
+        method: "POST",
+        credentials: "include", // keep cookies/session
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ text }),
+      });
 
-        if (response.status === 401) {
-          // If token is invalid or user is unauthenticated, force sign out
-          await signOut();
-          navigate('/sign-in');
-          throw new Error('Unauthenticated. Please log in again.');
-        }
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Error ${response.status}: ${errorText}`);
-        }
-
-        return response.json();
-      } catch (err) {
-        console.error('Error creating chat:', err);
-        throw err;
+      // Handle unauthorized responses (switching accounts)
+      if (response.status === 401) {
+        await signOut();       // force logout
+        navigate('/sign-in');  // redirect to login
+        throw new Error('Unauthenticated. Please log in again.');
       }
-    },
-    onSuccess: (id) => {
 
-      queryClient.invalidateQueries({ queryKey: ["userChats"] });
-      navigate(`/dashboard/chats/${id}`);
-    },
-  });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
+      }
+
+      return response.json();
+    } catch (err) {
+      console.error('Error creating chat:', err);
+      throw err; // propagate to react-query
+    }
+  },
+  onSuccess: (id) => {
+    queryClient.invalidateQueries({ queryKey: ["userChats"] }); // refresh chat list
+    navigate(`/dashboard/chats/${id}`);
+  },
+});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
