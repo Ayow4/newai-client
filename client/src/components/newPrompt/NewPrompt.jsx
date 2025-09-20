@@ -56,7 +56,7 @@ const NewPrompt = ({ data }) => {
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats/${data._id}`, {
         method: "PUT",
-        
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

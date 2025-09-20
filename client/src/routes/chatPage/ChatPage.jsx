@@ -22,7 +22,7 @@ const ChatPage = () => {
         const token = await getToken(); // Ensure token is fetched
 
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats/${chatId}`, {
-          
+          credentials: "include",
           headers: {
             Authorization: `Bearer ${token}`, // Set the authorization header
           },
