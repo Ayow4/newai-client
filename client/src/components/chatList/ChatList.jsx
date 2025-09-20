@@ -5,20 +5,21 @@ import { useAuth } from '@clerk/clerk-react';
 
 const ChatList = () => {
 
- const { getToken } = useAuth();
+  const { getToken } = useAuth();
 
   const { isPending, error, data } = useQuery({
-  queryKey: ["userChats"],
-  queryFn: async () => {
-    const token = await getToken();
-    return fetch(`${import.meta.env.VITE_API_URL}/api/userchats`, {
-      credentials: "include",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => res.json());
-  },
-});
+    queryKey: ["userChats"],
+    queryFn: async () => {
+      const token = await getToken({ template: "default" }); // ✅ get Clerk JWT
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/userchats`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ send JWT
+        },
+      });
+      if (!res.ok) throw new Error("Failed to fetch chats");
+      return res.json();
+    },
+  });
 
 
   return (
