@@ -7,16 +7,19 @@ const ChatList = () => {
 
   const { getToken } = useAuth();
 
-  const { isPending, error, data } = useQuery({
+ const { isPending, error, data } = useQuery({
   queryKey: ["userChats"],
   queryFn: async () => {
-    const token = await getToken();
+    const token = await getToken({ template: "default" }); // explicit Clerk JWT
     return fetch(`${import.meta.env.VITE_API_URL}/api/userchats`, {
-      credentials: "include",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => res.json());
+    }).then((res) => {
+      if (!res.ok) throw new Error("Failed to fetch chats");
+      return res.json();
+    });
   },
 });
 
