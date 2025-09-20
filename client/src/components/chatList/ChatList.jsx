@@ -1,45 +1,23 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './chatList.css'
 import { useQuery } from '@tanstack/react-query'
 import { useAuth } from '@clerk/clerk-react';
 
 const ChatList = () => {
-  const { getToken, signOut } = useAuth();
-  const navigate = useNavigate();
+  const { getToken } = useAuth();
 
   const { isPending, error, data } = useQuery({
-    queryKey: ["userChats"],
-    queryFn: async () => {
-      try {
-        const token = await getToken({ template: "default" });
-
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/userchats`, {
-          credentials: "include", // Keep cookies for session
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        // If the token is invalid or session expired
-        if (response.status === 401) {
-          await signOut();
-          navigate('/sign-in');
-          throw new Error("Unauthenticated. Please log in again.");
-        }
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Error ${response.status}: ${errorText}`);
-        }
-
-        return response.json();
-      } catch (err) {
-        console.error("Error fetching user chats:", err);
-        throw err;
-      }
-    },
-    retry: false, // Avoid retrying when token is invalid
-  });
+  queryKey: ["userChats"],
+  queryFn: async () => {
+    const token = await getToken();
+    return fetch(`${import.meta.env.VITE_API_URL}/api/userchats`, {
+      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
+  },
+});
 
 
 
