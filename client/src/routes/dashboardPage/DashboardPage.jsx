@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@clerk/clerk-react'; // Import useAuth to get the token
 
 const DashboardPage = () => {
+  
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { getToken, signOut } = useAuth(); // added signOut to reset session if needed
@@ -15,7 +16,7 @@ const DashboardPage = () => {
 
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats`, {
           method: "POST",
-          credentials: "include",
+          
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
