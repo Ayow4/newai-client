@@ -1,32 +1,37 @@
 import './chatPage.css'
 import NewPrompt from '../../components/newPrompt/NewPrompt';
 import { useQuery } from '@tanstack/react-query';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { IKImage } from 'imagekitio-react';
 import { useAuth } from '@clerk/clerk-react'; // Import useAuth to get the token
 
 const ChatPage = () => {
+  const path = useLocation().pathname;
+  const chatId = path.split("/").pop();
 
-  const path = useLocation().pathname
-  const chatId = path.split("/").pop()
+  const { getToken, signOut } = useAuth(); // include signOut
+  const navigate = useNavigate();
 
-   const { getToken } = useAuth(); // Get the token using Clerk
-
-
-   // Fetch chat data using react-query
   const { isPending, error, data } = useQuery({
     queryKey: ["chat", chatId],
     queryFn: async () => {
       try {
-        const token = await getToken(); // Ensure token is fetched
+        const token = await getToken();
 
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats/${chatId}`, {
           credentials: "include",
           headers: {
-            Authorization: `Bearer ${token}`, // Set the authorization header
+            Authorization: `Bearer ${token}`,
           },
         });
+
+        if (response.status === 401) {
+          // Force sign out if token is invalid
+          await signOut();
+          navigate('/sign-in');
+          throw new Error('Unauthenticated. Please log in again.');
+        }
 
         if (!response.ok) {
           const errorText = await response.text();
@@ -36,9 +41,10 @@ const ChatPage = () => {
         return response.json();
       } catch (err) {
         console.error('Error fetching chat data:', err);
-        throw err; // Propagate error to be handled by react-query
+        throw err;
       }
     },
+    retry: false, // optional: don't retry if token is invalid
   });
 
   return (

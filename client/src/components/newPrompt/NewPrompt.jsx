@@ -50,14 +50,16 @@ const NewPrompt = ({ data }) => {
   const queryClient = useQueryClient();
 
  const mutation = useMutation({
-    mutationFn: async () => {
-      const token = await getToken(); // Ensure token is fetched
+  mutationFn: async () => {
+    try {
+      const token = await getToken();
+
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats/${data._id}`, {
         method: "PUT",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Ensure the token is being set correctly
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           question: question.length ? question : undefined,
@@ -66,12 +68,23 @@ const NewPrompt = ({ data }) => {
         }),
       });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Error ${response.status}: ${errorText}`);
-    }
+      if (response.status === 401) {
+        // Token invalid, force logout
+        await signOut(); 
+        navigate('/sign-in');
+        throw new Error("Unauthenticated. Please log in again.");
+      }
 
-    return response.json();
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
+      }
+
+      return response.json();
+    } catch (err) {
+      console.error("Error updating chat:", err);
+      throw err; // propagate error to react-query
+    }
   },
     onSuccess: () => {
       queryClient

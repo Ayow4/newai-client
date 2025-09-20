@@ -4,27 +4,32 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@clerk/clerk-react'; // Import useAuth to get the token
 
 const DashboardPage = () => {
-
-  const queryClient = useQueryClient();
   
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
-
-  const { getToken } = useAuth(); // Get the token using Clerk
+  const { getToken, signOut } = useAuth(); // added signOut to reset session if needed
 
   const mutation = useMutation({
     mutationFn: async (text) => {
       try {
-        const token = await getToken(); // Ensure token is fetched
-        
+        const token = await getToken();
+
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chats`, {
           method: "POST",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Set the authorization header
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ text }),
         });
+
+        if (response.status === 401) {
+          // If token is invalid or user is unauthenticated, force sign out
+          await signOut();
+          navigate('/sign-in');
+          throw new Error('Unauthenticated. Please log in again.');
+        }
 
         if (!response.ok) {
           const errorText = await response.text();
@@ -34,11 +39,11 @@ const DashboardPage = () => {
         return response.json();
       } catch (err) {
         console.error('Error creating chat:', err);
-        throw err; // Propagate error to be handled by react-query
+        throw err;
       }
     },
     onSuccess: (id) => {
-      // Invalidate and refetch
+
       queryClient.invalidateQueries({ queryKey: ["userChats"] });
       navigate(`/dashboard/chats/${id}`);
     },
@@ -46,11 +51,11 @@ const DashboardPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const text = e.target.elements.text.value.trim(); // <--- Use elements property and trim() method
+    const text = e.target.elements.text.value.trim();
     if (!text) return;
 
     mutation.mutate(text);
-    e.target.reset(); // <--- Reset the form to prevent double submission
+    e.target.reset();
   };
 
   return (
