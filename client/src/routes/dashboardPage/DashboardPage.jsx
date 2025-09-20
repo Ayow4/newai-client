@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@clerk/clerk-react'; // Import useAuth to get the token
 
 const DashboardPage = () => {
+
   const queryClient = useQueryClient();
+  
   const navigate = useNavigate();
+
   const { getToken } = useAuth(); // Get the token using Clerk
 
   const mutation = useMutation({
