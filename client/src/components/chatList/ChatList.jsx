@@ -4,21 +4,32 @@ import { useQuery } from '@tanstack/react-query'
 import { useAuth } from '@clerk/clerk-react';
 
 const ChatList = () => {
-  const { getToken } = useAuth();
+  const { getToken, signOut } = useAuth();
 
   const { isPending, error, data } = useQuery({
-  queryKey: ["userChats"],
-  queryFn: async () => {
-    const token = await getToken();
-    return fetch(`${import.meta.env.VITE_API_URL}/api/userchats`, {
-      credentials: "include",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => res.json());
-  },
-});
+    queryKey: ["userChats"],
+    queryFn: async () => {
+      try {
+        const token = await getToken();
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/userchats`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
+        if (res.status === 401 || res.status === 404) {
+          // Token invalid or user not found → log out
+          signOut();
+          throw new Error("Session expired or user not found. Please log in again.");
+        }
+
+        return res.json();
+      } catch (err) {
+        console.error(err);
+        return []; // return empty array to avoid breaking the UI
+      }
+    },
+  });
 
 
   return (
