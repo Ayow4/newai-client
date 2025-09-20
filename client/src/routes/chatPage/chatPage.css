@@ -32,7 +32,7 @@
 p, li {
     margin: 15px 0px;
     font-size: 16px; /* Slightly larger font size for readability */
-    color: #2E7D32; /* Dark green text for planting theme */
+    color: #000000; /* Dark green text for planting theme */
 }
 
 .message {
@@ -64,4 +64,38 @@ p, li {
 .message.ai:hover {
     background-color: #81C784; /* Slightly lighter green on hover */
     transform: scale(1.05); /* Slightly larger hover effect */
+}
+
+@media (max-width: 900px) {
+    .chatPage {
+        padding: 16px;
+    }
+    .chat {
+        width: 95%;
+        padding: 18px;
+    }
+    .wrapper {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .chatPage {
+        padding: 6px;
+    }
+    .chat {
+        width: 100%;
+        padding: 8px;
+        gap: 12px;
+        border-radius: 8px;
+    }
+    .message {
+        padding: 10px;
+        font-size: 0.97rem;
+        border-radius: 12px;
+    }
+    p, li {
+        font-size: 15px;
+        margin: 8px 0;
+    }
 }

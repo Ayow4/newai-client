@@ -10,9 +10,9 @@ import DashboardLayout from "./routes/dashboardLayout/DashboardLayout";
 import SignUpPage from "./routes/signUpPage/signUpPage";
 import SignInPage from "./routes/signInPage/signInPage";
 import FaQ from "./routes/FaQ/faQ";
-import FeedBack from "./routes/feedBack/feedBack";
 import TermsOfService from "./routes/TermsOfService/TermsOfService";
 import PrivacyPolicy from "./routes/PrivacyPolicy/PrivacyPolicy";
+
 
 
 const router = createBrowserRouter([
@@ -42,10 +42,6 @@ const router = createBrowserRouter([
       {
         path:"/privacypolicy",
         element: <PrivacyPolicy/>,
-      },
-      {
-        path:"/feedback",
-        element: <FeedBack/>,
       },
       {
         element: <DashboardLayout />,

@@ -3,6 +3,7 @@ import { ClerkProvider } from '@clerk/clerk-react'
 import { SignedIn, UserButton } from "@clerk/clerk-react";
 import './rootLayout.css'
 import { QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import farmingIcon from '/assets/farming-icon.png';
 // Import your publishable key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -19,7 +20,7 @@ const RootLayout = () => {
             <div className='rootLayout'>
                 <header>
                     <Link to="/" className="logo">
-                        <img src="/farming-icon.png" alt="" />
+                        <img src={farmingIcon} alt="Farming Icon" />
                         <span>AI-DRIVEN FARMING PRACTICES</span>
                     </Link>
                     <div className="user">
