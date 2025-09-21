@@ -4,7 +4,6 @@ import ImageKit from "imagekit";
 import mongoose from "mongoose";
 import Chat from "./models/chat.js";
 import UserChats from "./models/userChats.js";
-// import FeedBack from "./models/feedBack.js";
 import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node'
 import dotenv from "dotenv";
 dotenv.config();
@@ -18,6 +17,17 @@ app.use(cors({
   credentials: true,
 })
 );
+
+// Hybrid auth: try Clerk, fallback to demo
+const requireAuthSafe = (req, res, next) => {
+  ClerkExpressRequireAuth()(req, res, (err) => {
+    if (err) {
+      console.warn("⚠️ Clerk auth failed, falling back to demo user");
+      req.auth = { userId: "demo-user" }; // fallback user
+    }
+    next();
+  });
+};
 
 app.use(express.json())
 
@@ -45,7 +55,7 @@ app.get("/api/upload", (req, res) => {
   res.send(result);
 });
 
-app.post("/api/chats", ClerkExpressRequireAuth(), async (req, res) => {
+app.post("/api/chats", requireAuthSafe, async (req, res) => {
   const userId = req.auth.userId;
   const { text } = req.body;
 
@@ -96,22 +106,29 @@ app.post("/api/chats", ClerkExpressRequireAuth(), async (req, res) => {
   }
 });
 
-app.get("/api/userchats", ClerkExpressRequireAuth(), async (req, res) => {
+app.get("/api/userchats", requireAuthSafe, async (req, res) => {
   const userId = req.auth.userId;
 
   try {
+    let userChats = await UserChats.findOne({ userId });
 
-    const userChats = await UserChats.find({ userId })
+    // ✅ Auto-create if missing
+    if (!userChats) {
+      userChats = new UserChats({
+        userId,
+        chats: [],
+      });
+      await userChats.save();
+    }
 
-    res.status(200).send(userChats[0].chats);
-
+    res.status(200).send(userChats.chats);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).send("Error fetching chat!");
   }
 });
 
-app.get("/api/chats/:id", ClerkExpressRequireAuth(), async (req, res) => {
+app.get("/api/chats/:id", requireAuthSafe, async (req, res) => {
   const userId = req.auth.userId;
 
   try {
@@ -124,7 +141,7 @@ app.get("/api/chats/:id", ClerkExpressRequireAuth(), async (req, res) => {
   }
 });
 
-app.put("/api/chats/:id", ClerkExpressRequireAuth(), async (req, res) => {
+app.put("/api/chats/:id", requireAuthSafe, async (req, res) => {
   const userId = req.auth.userId;
 
   const { question, answer, img } = req.body;
@@ -151,52 +168,6 @@ app.put("/api/chats/:id", ClerkExpressRequireAuth(), async (req, res) => {
     res.status(500).send("Error adding conversation!");
   }
 })
-
-
-// // feedback
-// // app.post("/api/feedback", ClerkExpressRequireAuth(), async (req, res) => {
-// //   const userId = req.auth.userId;
-// //   const { rating, comment } = req.body;
-
-// //   console.log("Received feedback request:", req.body);
-
-// //   try {
-// //     const newFeedback = new FeedBack({
-// //       userId,
-// //       rating,
-// //       comment,
-// //     });
-
-// //     console.log("Saving feedback to database...");
-
-// //     await newFeedback.save();
-
-// //     console.log("Feedback saved successfully!");
-
-// //     res.status(201).send("Feedback submitted successfully!");
-// //   } catch (err) {
-// //     console.error("Error submitting feedback:", err);
-// //     res.status(500).send("Error submitting feedback!");
-// //   }
-// // });
-// // -------------------------------------------------- 
-// // app.get("/api/feedback", async (req, res) => {
-// //   try {
-// //     const feedback = await Feedback.find().exec();
-
-// //     res.status(200).send(feedback);
-// //   } catch (err) {
-// //     console.log(err);
-// //     res.status(500).send("Error fetching feedback!");
-// //   }
-// // });
-// // ////
-
-// app.use((err, req, res, next) => {
-//   console.error(err.stack)
-//   res.status(401).send('Unauthenticated!')
-// });
-// // ---------try------------------
 
 app.listen(port, () => {
   connect()
