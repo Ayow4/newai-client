@@ -19,21 +19,13 @@ const Homepage = () => {
         </h3>
 
         {/* ✅ Redirect based on auth state */}
-    <SignedIn>
-      <Link to="/dashboard">Get Started</Link>
-    </SignedIn>
-    <SignedOut>
-      <a 
-        href={`https://cool-lynx-81.accounts.dev/sign-in?redirect_url=${
-          import.meta.env.DEV 
-            ? "http://localhost:5173/dashboard" 
-            : "https://newai-client.vercel.app/dashboard"
-        }`}
-      >
-        Get Started
-      </a>
-    </SignedOut>
-  </div>
+        <SignedIn>
+          <Link to="/dashboard">Get Started</Link>
+        </SignedIn>
+        <SignedOut>
+          <Link to="/sign-in">Get Started</Link>
+        </SignedOut>
+      </div>
 
       <div className="right">
         <div className="imgContainer">

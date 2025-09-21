@@ -4,13 +4,8 @@ import './signInPage.css'
 const SignInPage = () => {
   return (
     <div className='signInPage'>
-      <SignIn
-        routing="path"
-        path="/sign-in"
-        signUpUrl="/sign-up"
-        redirectUrl="/dashboard"
-      />
-    </div>
+      <SignIn path="/sign-in" signUpUrl="/sign-up" forceRedirectUrl="/dashboard"/>
+      </div>
   )
 }
 
