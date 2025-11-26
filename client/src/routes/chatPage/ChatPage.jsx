@@ -57,7 +57,7 @@ const ChatPage = () => {
                       path={message.img}
                       height="150"
                       width="200"
-                      transformation={[{ height: 300, width: 400 }]}
+                      transformation={[{ height: 150, width: 200 }]}
                       loading="lazy"
                       lqip={{ active: true, quality: 20 }}
                     />
