@@ -69,7 +69,7 @@ const ChatList = () => {
 
       <div className="upgrade">
         <div className="texts">
-          <span>© {new Date().getFullYear()}. All rights reserved.</span>
+          {/* <span>© {new Date().getFullYear()}. All rights reserved.</span> */}
         </div>
       </div>
     </aside>
