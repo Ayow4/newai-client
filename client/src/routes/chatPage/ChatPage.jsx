@@ -55,8 +55,8 @@ const ChatPage = () => {
                     <IKImage
                       urlEndpoint={import.meta.env.VITE_IMAGE_KIT_ENDPOINT}
                       path={message.img}
-                      height="300"
-                      width="400"
+                      height="150"
+                      width="200"
                       transformation={[{ height: 300, width: 400 }]}
                       loading="lazy"
                       lqip={{ active: true, quality: 20 }}

@@ -1,58 +1,116 @@
 .rootLayout {
-  padding: 16px 64px;
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: url('/bot.jpg'); /* Path to your background image */
+  min-height: 100vh;
+}
 
+/* --- HEADER --- */
+header {
+  display: flex;
+  align-items: center;
+  background: none;
+  justify-content: space-between;
+  padding: 12px 32px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Logo container */
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+/* Logo image */
+header .logo img {
+  width: 32px;
+  height: 32px;
+}
+
+/* Logo text */
+header .logo span {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* User section */
+header .user {
+  display: flex;
+}
+
+/* --- MAIN CONTENT --- */
+main {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+}
+
+/* =============================== */
+/* TABLET RESPONSIVE (768px) */
+/* =============================== */
+@media (max-width: 768px) {
   header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .logo {
-      display: flex;
-      align-items: center;
-      font-weight: bold;
-      gap: 8px;
-      position: relative; /* add this */
-      color: #ffffff;
-      background-color: #0000;
-
-      img {
-        width: 32px;
-        height: 32px;
-      }
-
-      &:hover::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 350px  ;
-        height: 100%;
-        background-color: #4c4a4a73; /* change to your desired background color */
-        z-index: -1;
-        border-radius: 10px; /* optional */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.627); /* optional */
-      }
-
-      &:hover {
-        color: #ffffff14; /* change to your desired text color */
-      }
-
-      span {
-        transition: color 0.2s ease-in-out;
-      }
-
-      &:hover span {
-        color: #fff; /* change to your desired text color */
-      }
-    }
+    padding: 10px 24px;
   }
 
-  main {
-    flex: 1;
-    overflow: auto;
+  header .logo img {
+    width: 28px;
+    height: 28px;
+  }
+
+  header .logo span {
+    font-size: 0.85rem;
+    max-width: 180px;
+    display: none;
+  }
+}
+
+/* =============================== */
+/* MOBILE RESPONSIVE (480px) */
+/* =============================== */
+@media (max-width: 480px) {
+  header {
+    padding: 10px 16px;
+  }
+
+  /* hide the whole logo block on mobile */
+  header .logo {
+    display: none;
+  }
+
+  /* keep the user control pinned to the right */
+  header .user {
+    margin-left: auto;
+    transform: scale(0.9);
+  }
+}
+
+/* =============================== */
+/* SMALL PHONES (375px & below) */
+/* =============================== */
+@media (max-width: 375px) {
+  header .logo {
+    display: none;
+  }
+
+  header .logo span {
+    font-size: 0.7rem;
+    max-width: 120px;
+  }
+
+  /* ensure user remains at right and slightly smaller */
+  header .user {
+    transform: scale(0.8);
+    margin-left: auto;
   }
 }

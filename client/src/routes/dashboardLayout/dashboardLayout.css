@@ -1,28 +1,154 @@
+/* dashboardLayout.css - Container layout for dashboard */
+
+:root {
+  --gap: 20px;
+  --bg-main: #060708;
+  --content-bg: #0f1513;
+}
+
+/* MAIN LAYOUT */
 .dashboardLayout {
-    display: flex;
-    gap: 50px;
-    padding-top: 20px;
+  display: flex;
+  gap: var(--gap);
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+  position: relative;
+  overflow: auto;
+}
+
+/* SIDEBAR */
+.menu {
+  width: 320px;
+  max-width: 320px;
+  background: #111827;
+  border-right: 1px solid #1f2937;
+  transition: transform 0.3s ease, visibility 0.3s;
+  z-index: 60;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: transparent;
+  min-height: 80vh;
+}
+
+/* Mobile menu button (hidden on desktop) */
+.menuBtn {
+  display: none;
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 22px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Backdrop */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+  z-index: 50;
+}
+.backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Close button inside menu (mobile) */
+.menu .closeBtn {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 70;
+}
+
+/* Tablet adjustments */
+@media (max-width: 900px) {
+  .dashboardLayout {
+    gap: 16px;
+    padding: 16px;
+  }
+  .menuBtn {
+    font-size: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 70;
+  }
+}
+
+/* MOBILE SLIDE-IN MENU */
+@media screen and (max-width: 768px) {
+
+  .dashboardLayout {
+    margin-bottom:100px;
+    padding: 0;
+    gap: 0;
+  }
+
+  /* MENU PANEL — HIDDEN OFF SCREEN */
+  .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100%;
-  
-    .menu {
-      flex: 1;
-    }
-  
-    .content {
-      flex: 4;
-      background-color: #12101b;
-    }
+    z-index: 70;
+    transform: translateX(-110%);
+    width: 84%;
+    max-width: 320px;
+    box-shadow: 6px 0 30px rgba(0,0,0,0.6);
+    visibility: hidden;
   }
-  @media (max-width: 767px) {
-    .dashboardLayout {
-      flex-direction: column;
-    }
-  
-    .dashboardLayout .menu {
-      display: none;
-    }
-  
-    .dashboardLayout .content {
-      flex: 1;
-    }
+
+  /* WHEN TOGGLED OPEN */
+  .menu.open {
+    transform: translateX(0);
+    visibility: visible;
   }
+
+  .menuBtn {
+    font-size: 24px;
+    background: rgba(0,0,0,0.2);
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 80;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    border-radius: 8px;
+    padding: 8px 10px;
+    backdrop-filter: blur(4px);
+  }
+
+  .mobileHeader {
+    display: block;
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    z-index: 75;
+  }
+
+  /* Push content under header */
+  .content {
+    margin-top: 10px;
+  }
+}
+
+/* ensure layout stacks nicely on very small screens */
+@media (max-width: 420px) {
+  .menu { width: 90%; }
+  .menuBtn { top: 8px; left: 8px; font-size: 20px; padding: 7px 9px; }
+}

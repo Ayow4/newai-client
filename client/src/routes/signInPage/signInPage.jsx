@@ -4,12 +4,14 @@ import "./signInPage.css";
 const SignInPage = () => {
   return (
     <div className="signInPage">
-      <SignIn
-        path="/sign-in"
-        routing="path"
-        signUpUrl="/sign-up"
-        afterSignInUrl="/dashboard"
-      />
+      <div className="authCard">
+        <SignIn
+          path="/sign-in"
+          routing="path"
+          signUpUrl="/sign-up"
+          afterSignInUrl="/dashboard"
+        />
+      </div>
     </div>
   );
 };

@@ -11,12 +11,14 @@ const RootLayout = () => {
           <img src={farmingIcon} alt="Farming Icon" />
           <span>AI-DRIVEN FARMING PRACTICES</span>
         </Link>
+
         <div className="user">
           <SignedIn>
             <UserButton />
           </SignedIn>
         </div>
       </header>
+
       <main>
         <Outlet />
       </main>

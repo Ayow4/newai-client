@@ -176,14 +176,16 @@ const NewPrompt = ({ data }) => {
         </div>
       )}
       <div className="endChat" ref={endRef}></div>
-      <form className="newForm" onSubmit={handleSubmit} ref={formRef}>
-        <Upload setImg={setImg} />
-        <input id="file" type="file" multiple={false} hidden />
-        <input type="text" name="text" placeholder="Enter prompt here" />
-        <button>
-          <img src="/arrow.png" alt="" />
-        </button>
-      </form>
+      <div className="formContainer" aria-label="New chat prompt">
+        <form className="newForm" onSubmit={handleSubmit} ref={formRef}>
+          <Upload setImg={setImg} />
+          <input id="file" type="file" multiple={false} hidden />
+          <input type="text" name="text" placeholder="Enter prompt here" />
+          <button type="submit">
+            <img src="/arrow.png" alt="" />
+          </button>
+        </form>
+      </div>
     </>
   );
 };

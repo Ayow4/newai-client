@@ -1,13 +1,13 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import './dashboardPage.css'
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@clerk/clerk-react'; // Import useAuth to get the token
+// DashboardPage.jsx
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import "./dashboardPage.css";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
 
 const DashboardPage = () => {
-  
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { getToken, signOut } = useAuth(); // added signOut to reset session if needed
+  const { getToken, signOut } = useAuth();
 
   const mutation = useMutation({
     mutationFn: async (text) => {
@@ -25,10 +25,9 @@ const DashboardPage = () => {
         });
 
         if (response.status === 401) {
-          // If token is invalid or user is unauthenticated, force sign out
           await signOut();
-          navigate('/sign-in');
-          throw new Error('Unauthenticated. Please log in again.');
+          navigate("/sign-in");
+          throw new Error("Unauthenticated. Please log in again.");
         }
 
         if (!response.ok) {
@@ -38,7 +37,7 @@ const DashboardPage = () => {
 
         return response.json();
       } catch (err) {
-        console.error('Error creating chat:', err);
+        console.error("Error creating chat:", err);
         throw err;
       }
     },
@@ -58,38 +57,31 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className='dashboardPage'>
-      <div className="texts">
-        <div className="logo">
-          {/* <img src="/logo.png" alt="" /> */}
-          <h1>  AI-DRIVEN FARMING PRACTICES</h1>
+    <main className="dashboardPage" aria-live="polite">
+      <section className="hero">
+        <div className="hero-texts">
+          <div className="logo">
+            <h1>AI-DRIVEN FARMING PRACTICES</h1>
+          </div>
+
+          <div className="options" role="list">
+            <button className="option" type="button">What are some effective natural methods for controlling aphids on vegetable crops?</button>
+            <button className="option" type="button">What are the signs of nitrogen deficiency in corn plants, and what are common fertilizer options?</button>
+            <button className="option" type="button">Tips for improving soil drainage in heavy clay soil for tomatoes?</button>
+          </div>
         </div>
 
-        <div className="options">
-          <div className="option">
-            {/* <img src="/chat.png" alt="" /> */}
-            <span>What are some effective natural methods for controlling aphids on vegetable crops?"</span>
-          </div>
-          <div className="option">
-            {/* <img src="/image.png" alt="" /> */}
-            <span>What are the signs of nitrogen deficiency in corn plants, and what are some common nitrogen fertilizer options?</span>
-          </div>
-          <div className="option">
-            {/* <img src="/image.png" alt="" /> */}
-            <span>What are some general tips for improving soil drainage in a heavy clay soil for planting tomatoes?</span>
-          </div>
+        <div className="formContainer" aria-label="Create new chat">
+          <form onSubmit={handleSubmit}>
+            <input name="text" type="text" placeholder="Enter prompt here" aria-label="Chat prompt" />
+            <button type="submit" aria-label="Send prompt">
+              <img src="/arrow.png" alt="" />
+            </button>
+          </form>
         </div>
-      </div>
-      <div className="formContainer">
-        <form onSubmit={handleSubmit}>
-          <input type="text" name="text" placeholder='Enter prompt here' />
-          <button>
-            <img src="/arrow.png" alt="" />
-          </button>
-        </form>
-      </div>
-    </div>
-  )
-}
+      </section>
+    </main>
+  );
+};
 
-export default DashboardPage
+export default DashboardPage;

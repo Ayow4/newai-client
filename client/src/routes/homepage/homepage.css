@@ -1,211 +1,142 @@
-.homepage {
-    display: flex;
-    align-items: center;
-    gap: 100px;
-    height: 100%;
-    
-  
-    @media screen and (max-width: 1024px) {
-      flex-direction: column;
-      gap: 0px;
-    }
-  
-    .left {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      text-align: center;
-  
-      h1 {
-        font-size: 60px;
-        background: linear-gradient(to right, #ffffff, #ffffff); /* Green gradient for planting theme */
-        background-clip: text;
-        -webkit-background-clip: text;
-        color: transparent;
-  
-        @media screen and (max-width: 1280px) {
-          font-size: 64px;
-        }
-      }
-      h3 {
-        font-weight: 400;
-        max-width: 70%;
-  
-        @media screen and (max-width: 1024px) {
-          max-width: 100%;
-        }
-      }
-      a {
-        padding: 15px 25px;
-        background-color: #00fc7e;
-        color: white;
-        border-radius: 20px;
-        font-size: 14px;
-        margin-top: 20px;
-  
-        &:hover {
-          background-color: white;
-          color: #00fc7e;
-        }
-      }
-    }
-    .right {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-  
-      .imgContainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-image: url("/farming-icon.png");
-        border-radius: 50px;
-        width: 80%;
-        height: 50%;
-        position: relative;
-  
-        .bgContainer {
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-          position: absolute;
-          top: 0;
-          left: 0;
-          border-radius: 50px;
-  
-          
-        }
-  
-        .bot {
-          width: 100%;
-          height: 120%;
-          object-fit: contain;
-          animation: 3s ease-in-out infinite alternate botAnimate;
-        }
-  
-      }
-    }
-  
-    .terms {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-  
-      img {
-        width: 16px;
-        height: 16px;
-      }
-  
-      .links {
-        display: flex;
-        gap: 10px;
-        color: #888;
-        font-size: 10px;
-      }
-    }
-  }
-
-  .farming-icon {
-    width: 100px; /* Adjust size as needed */
-    height: auto;
-    margin-top: 20px; /* Add spacing */
-}
-
-.homepage-footer {
-  width: 100%;
-  background: #111;
-  color: #ececec;
-  padding: 28px 0 16px 0;
-  text-align: center;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  z-index: 10;
-  box-shadow: 0 -2px 16px rgba(0,0,0,0.15);
-}
-
-.footer-content {
-  max-width: 600px;
-  margin: 0 auto;
+/* ---------- PREMIUM HERO LAYOUT ---------- */
+.hero-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  font-size: 15px;
-}
-
-.footer-divider {
-  width: 60px;
-  height: 2px;
-  background: #222;
-  margin: 10px auto;
-  border-radius: 2px;
-}
-
-.footer-links {
-  display: flex;
-  gap: 18px;
-  justify-content: center;
-  margin-top: 4px;
-}
-
-.footer-links a {
-  color: #00fc7e;
-  background: transparent;
-  padding: 0 8px;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 15px;
-  transition: color 0.2s, background 0.2s;
-}
-
-.footer-links a:hover {
+  justify-content: space-between;
+  padding: 80px 10%;
+  min-height: 100vh;
+  width: 100%;
+  gap: 60px;
   color: #fff;
-  background: #00fc7e;
-  text-decoration: none;
+
+  background: radial-gradient(
+      circle at top left,
+      rgba(0, 255, 150, 0.15),
+      transparent 50%
+    ),
+    linear-gradient(to bottom right, #0f1b12, #071009);
+  background-size: cover;
+
+  /* soft fade-in */
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
 }
 
-/* Responsive styles */
-@media (max-width: 900px) {
-  .homepage {
-    flex-direction: column;
-    gap: 30px;
-    padding: 24px 2vw;
+/* ---------- TEXT SECTION ---------- */
+.hero-content {
+  flex: 1.2;
+  min-width: 320px;
+  text-align: left;
+  animation: slideUp 1s ease forwards;
+}
+
+.hero-title {
+  font-size: 3.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(#fff, #b3ffd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  margin-top: 18px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #74ffad;
+  text-shadow: 0 0 10px rgba(0, 255, 150, 0.3);
+}
+
+.hero-description {
+  margin-top: 20px;
+  max-width: 520px;
+  color: #fff;
+  font-size: 1.12rem;
+  opacity: 0.85;
+  line-height: 1.7;
+}
+
+/* ---------- BUTTON ---------- */
+.hero-button {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 15px 42px;
+  background: linear-gradient(90deg, #00ff9d, #00d86f);
+  color: #0c1510;
+  border-radius: 40px;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: 0.25s ease;
+  box-shadow: 0 4px 20px rgba(0, 255, 150, 0.25);
+}
+
+.hero-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 26px rgba(0, 255, 150, 0.45);
+}
+
+/* ---------- IMAGE SECTION ---------- */
+.hero-image-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+
+.hero-image {
+  width: 95%;
+  height: 50%;
+  max-width: 500px;
+  filter: drop-shadow(0 10px 25px rgba(0, 255, 150, 0.25));
+  transition: 0.3s ease;
+}
+
+.hero-image:hover {
+  transform: scale(1.03);
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- TABLET RESPONSIVE ---------- */
+@media (max-width: 1024px) {
+  .hero-container {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 70px 8%;
   }
-  .imgContainer {
-    width: 220px;
-    max-width: 90vw;
-  }
-  .left h1 {
-    font-size: 2.2rem;
-  }
-  .left h2 {
-    font-size: 1.2rem;
+
+  .hero-title {
+    font-size: 3rem;
   }
 }
 
+/* ---------- MOBILE RESPONSIVE ---------- */
 @media (max-width: 600px) {
-  .homepage {
-    padding: 12px 1vw;
-    gap: 16px;
+  .hero-container {
+    padding: 50px 6%;
   }
-  .left h1 {
-    font-size: 1.3rem;
+
+  .hero-title {
+    font-size: 2.4rem;
   }
-  .left h2 {
+
+  .hero-image {
+    max-width: 300px;
+  }
+
+  .hero-button {
+    padding: 14px 34px;
     font-size: 1rem;
-  }
-  .imgContainer {
-    width: 120px;
   }
 }

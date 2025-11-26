@@ -1,101 +1,177 @@
+/* =====================================
+   REQUIRED FOR PROPER HEIGHT & SCROLL
+===================================== */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main container */
 .chatPage {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    background-color: #18230F; /* Earthy green background for planting theme */
-    color: #fff; /* White text for readability */
-    padding: 30px;
-    box-shadow: 0px 6px 15px rgb(0, 58, 182); /* Subtle shadow for a professional look */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0e150b;
+  color: white;
+  overflow: hidden; /* Prevent double scroll */
 }
 
+/* Scrollable wrapper */
 .wrapper {
-    flex: 1;
-    overflow: auto;
-    scrollbar-width: none;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  padding-bottom: 170px; /* space for fixed input bar */
+  scrollbar-width: none;
 }
 
+/* Chat messages container */
 .chat {
-    width: 80%; /* Wider chat area for better usability */
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    border-radius: 15px;
-    padding: 30px;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-p, li {
-    margin: 15px 0px;
-    font-size: 16px; /* Slightly larger font size for readability */
-    color: #000000; /* Dark green text for planting theme */
+/* ============================
+   FIXED INPUT BAR (BOTTOM)
+============================ */
+.formContainer {
+  width: 100%;
+  max-width: 900px;
+
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(0, 255, 157, 0.25);
+  padding: 10px 16px;
+
+  border-radius: 18px;
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.15);
+
+  display: flex;
+  align-items: center;
+  z-index: 10;
 }
 
+/* INPUT */
+.formContainer input {
+  flex: 1;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 12px;
+  color: #00ff9d;
+  font-size: 16px;
+  outline: none;
+}
+
+/* BUTTON */
+.formContainer button {
+  background: #00ff9d;
+  border: none;
+  width: 46px;
+  height: 46px;
+  margin-left: 10px;
+
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  transition: 0.2s ease-out;
+}
+
+.formContainer button:hover {
+  background: #00c878;
+  transform: scale(1.05);
+}
+
+.formContainer button img {
+  width: 18px;
+  height: 18px;
+}
+
+/* =====================================
+   MESSAGE BUBBLES (unchanged)
+===================================== */
 .message {
-    padding: 20px;
-    border-radius: 20px;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+  padding: 16px 18px;
+  border-radius: 18px;
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 85%;
+  word-break: break-word;
 }
 
 .message.user {
-    background-color: #8BC34A; /* Vibrant green for user messages */
-    border-radius: 25px;
-    max-width: 100%;
-    align-self: flex-end;
-    color: #fff;
-}
-
-.message.user:hover {
-    background-color: #689F38; /* Darker green on hover */
-    transform: scale(1.05); /* Slightly larger hover effect */
+  align-self: flex-end;
+  background: #00c853;
+  color: white;
 }
 
 .message.ai {
-    background-color: #A5D6A7; /* Light green for AI messages */
-    max-width: 100%;
-    align-self: flex-start;
-    color: #2E7D32; /* Dark green text for readability */
+  align-self: flex-start;
+  background: #1b2618;
+  color: #c8f7d1;
 }
 
-.message.ai:hover {
-    background-color: #81C784; /* Slightly lighter green on hover */
-    transform: scale(1.05); /* Slightly larger hover effect */
+/* =====================================
+   MOBILE RESPONSIVE FIXES
+===================================== */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 12px;
+    padding-bottom: 160px; /* more space for fixed input */
+  }
+
+  .formContainer {
+    max-width: 95%;
+    bottom: 14px;
+    padding: 10px 14px;
+  }
+
+  .formContainer input {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .chat {
+    gap: 16px;
+  }
 }
 
-@media (max-width: 900px) {
-    .chatPage {
-        padding: 16px;
-    }
-    .chat {
-        width: 95%;
-        padding: 18px;
-    }
-    .wrapper {
-        padding: 10px;
-    }
-}
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 8px;
+    padding-bottom: 150px;
+  }
 
-@media (max-width: 600px) {
-    .chatPage {
-        padding: 6px;
-    }
-    .chat {
-        width: 100%;
-        padding: 8px;
-        gap: 12px;
-        border-radius: 8px;
-    }
-    .message {
-        padding: 10px;
-        font-size: 0.97rem;
-        border-radius: 12px;
-    }
-    p, li {
-        font-size: 15px;
-        margin: 8px 0;
-    }
+  .formContainer {
+    max-width: 94%;
+    border-radius: 14px;
+    padding: 8px 12px;
+  }
+
+  .formContainer button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .message {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    max-width: 95%;
+  }
 }
