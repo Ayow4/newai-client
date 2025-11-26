@@ -10,12 +10,6 @@ const Homepage = () => {
         <h1 className="hero-title">AI-Driven Farming Practices</h1>
 
         <p className="hero-subtitle">Precision is the new productivity</p>
-
-        <p className="hero-description">
-          With AI, farming becomes a precise science rather than guesswork.  
-          It optimizes every step from planting to harvest—reducing waste  
-          and boosting yields.
-        </p>
         
         <SignedIn>
           <Link className="hero-button" to="/dashboard">Get Started</Link>
