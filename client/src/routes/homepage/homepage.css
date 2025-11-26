@@ -20,7 +20,6 @@
   /* soft fade-in */
   opacity: 0;
   animation: fadeIn 0.8s ease forwards;
-  overflow-y: auto;  
 }
 
 /* ---------- TEXT SECTION ---------- */
