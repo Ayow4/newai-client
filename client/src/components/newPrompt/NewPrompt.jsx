@@ -157,6 +157,14 @@ const NewPrompt = ({ data }) => {
     hasRun.current = true;
   }, []);
 
+  useEffect(() => {
+  // When image upload completes → auto ask Gemini
+  if (img.dbData?.filePath && Object.keys(img.aiData).length) {
+    add("Here is an image I want you to analyze.", false);
+  }
+}, [img.dbData]);
+
+
   return (
     <>
       {/* ADD NEW CHAT */}
