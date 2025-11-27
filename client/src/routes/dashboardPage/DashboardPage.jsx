@@ -64,11 +64,11 @@ const DashboardPage = () => {
             <h1>AI-DRIVEN FARMING PRACTICES</h1>
           </div>
 
-          <div className="options" role="list">
+          {/* <div className="options" role="list">
             <button className="option" type="button">What are some effective natural methods for controlling aphids on vegetable crops?</button>
             <button className="option" type="button">What are the signs of nitrogen deficiency in corn plants, and what are common fertilizer options?</button>
             <button className="option" type="button">Tips for improving soil drainage in heavy clay soil for tomatoes?</button>
-          </div>
+          </div> */}
         </div>
 
         <div className="formContainer" aria-label="Create new chat">
